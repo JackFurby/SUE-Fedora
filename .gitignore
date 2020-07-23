@@ -3,3 +3,4 @@ chatroom/node_modules
 Rasa/venv
 Rasa/models/*.tar.gz
 Bang.mp4
+*.pyc
