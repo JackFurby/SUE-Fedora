@@ -3,4 +3,10 @@ chatroom/node_modules
 Rasa/venv
 Rasa/models/*.tar.gz
 Bang.mp4
+gun-fight2-full.mp4
 *.pyc
+framesBang.gif
+audioBang.wav
+framesFight.gif
+audioFight.wav
+audioFight.wav
