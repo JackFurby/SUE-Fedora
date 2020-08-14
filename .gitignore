@@ -2,7 +2,6 @@ node_modules
 chatroom/node_modules
 Rasa/venv
 Rasa/models/*.tar.gz
-<<<<<<< HEAD
 Bang.mp4
 gun-fight2-full.mp4
 *.pyc
@@ -11,6 +10,3 @@ audioBang.wav
 framesFight.gif
 audioFight.wav
 Rasa/__pycache__
-=======
-Rasa/__pycache__
->>>>>>> b0f93e17c4af5275d880472ecbca5857e42d6e40
