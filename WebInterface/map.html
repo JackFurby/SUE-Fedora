@@ -59,12 +59,12 @@
                     </div>
 
                     <div class="sidebar-contents">
-                            
+
                         <div class="overlay-page" id="searchpanel" >
                             <div class="sidebar-header">
                                 <span><h3>Chat With SUE</h3></span>
                             </div>
-            
+
                             <div class="sidebar-main">
                                 <div class="chat-container cnlChat"></div>
                             </div>
@@ -74,7 +74,7 @@
                             <div class="sidebar-header">
                                 <span><h3>Data Analysis</h3></span>
                             </div>
-            
+
                             <div class="sidebar-main mapanalysis">
                                 <div id="priorityChartContainer">
                                     <canvas id="priorityChart"></canvas>
@@ -90,7 +90,7 @@
                                 <h3 id="detailsID" class="hidden"></h3>
                                 <span><h3 id="detailsName"></h3></span>
                             </div>
-            
+
                             <div class="sidebar-main" id="side-main">
                                 <span id="detailsText" style="white-space: pre-line"></span>
 
@@ -107,7 +107,7 @@
                                                         <canvas id="carochart"></canvas>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="carousel-item ">
                                                     <div id="objDetVideo" class="chart-container">
                                                         <h4>Object Detection Video:</h4>
@@ -116,9 +116,9 @@
                                                         </video>
                                                     </div>
                                                 </div>
-            
+
                                             </div>
-                                            
+
                                             <a class="carousel-control-prev" href="#analysisCarousel" role="button" data-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Previous</span>
@@ -135,44 +135,44 @@
                                     <h4 id="chartTitle">Footage Analysis:</h4>
                                     <canvas id="analysischart"></canvas>
                                 </div>
-                                
+
                                 <div id="analysisAudio" style="display:none;">
-                                    <h4 id="audioDetect">Detected Audio:</h4>
-                                    <audio id="audioPlayerDet" controls autoplay loop onplay="plotChartPoints()" >
+                                    <h4 id="audioDetect">Audio Clip:</h4>
+                                    <audio id="audioPlayerDet" controls onplay="plotChartPoints()" >
                                         <source id="detAudioSource" src="" type="audio/wav">
                                         </audio>
                                 </div>
-                    
+
                                 <div id="analysisVideo" class="chart-container" style="display:none;">
                                     <h4>Footage Analysis:</h4>
                                     <video id="videoAPlayer" controls autoplay loop>
                                         <source id="videoASource" src="" type="video/mp4">
                                     </video>
                                 </div>
-                                
+
                                 <div id="analysisImage" style="display:none;">
-                                    <h4>Footage Analysis:</h4>
+                                    <h4>Video Explanation:</h4>
                                     <img id="detImageSource" src="" />
                                 </div>
-                                    
+
                                 <div id="mainVideo" style="display:none;">
                                     <h4 id="videoDesc">Captured Footage:</h4>
                                     <video id="videoPlayer" controls autoplay loop onplay="plotChartPoints()">
                                         <source id="videoSource" src="" type="video/mp4">
-                                    </video>                
+                                    </video>
                                 </div>
 
                                 <div id="mainAudio" style="display:none;">
                                     <h4 id="audioDesc">Captured Audio:</h4>
                                     <audio id="audioPlayer" controls autoplay loop onplay="plotChartPoints()" >
                                         <source id="audioSource" src="" type="audio/wav">
-                                    </audio>  
+                                    </audio>
                                 </div>
                             </div>
                         </div>
-                    </div>     
-                </div>    
-            </div> 
+                    </div>
+                </div>
+            </div>
 
             <div class="slider"></div>
 

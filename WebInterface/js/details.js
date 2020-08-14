@@ -141,7 +141,7 @@ async function toggleDetails(json, coordinates){
     let detImage = ((json.detImage != null) ? videoLink + json.detImage : null);
 
     let videofile = null;
-    let audiofile = null; 
+    let audiofile = null;
 
     if (type == "Event") {
 
@@ -160,7 +160,7 @@ async function toggleDetails(json, coordinates){
     let timelineInfo = json.eventDetails;
 
     if (detailsID.innerHTML != id && details.classList.contains('hidden') === false) {
-       
+
         clearDetailsMedia()
 
         AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRevVideo, detImage, detAudio, videofile, audiofile, timelineInfo)
@@ -189,7 +189,7 @@ function clearDetailsMedia() {
     if (analysisCarousel.style.display != "none") {
         analysisCarousel.style.display = "none";
         clearChart(true);
-            
+
         objDetSource.setAttribute('src', '');
         objDetPlayer.load();
     }
@@ -250,8 +250,21 @@ function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRev
                 videoDesc.innerHTML = "Captured Footage :";
                 if (!videoPlayer.classList.contains("sensorVideo")) { videoPlayer.classList.add("sensorVideo"); }
             }
-        
-        } else { 
+
+            if (audiofile != null) {
+                mainVideo.style.display = "none";
+                mainAudio.style.display = "block";
+                audioSource.setAttribute('src', audiofile);
+                audioPlayer.load();
+
+            } else {
+                mainAudio.style.display = "none";
+                mainVideo.style.display = "block";
+                videoSource.setAttribute('src', videofile);
+                videoPlayer.load();
+            }
+
+        } else {
 
             detailsID.innerHTML = json.eventID;
             detailsName.innerHTML = json.eventName;
@@ -297,19 +310,6 @@ function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRev
                 detAudioSource.setAttribute('src', detAudio);
                 detAudioPlayer.load();
             }
-        }
-
-        if (audiofile != null) {
-            mainVideo.style.display = "none";
-            mainAudio.style.display = "block";
-            audioSource.setAttribute('src', audiofile);
-            audioPlayer.load();
-
-        } else {
-            mainAudio.style.display = "none";
-            mainVideo.style.display = "block";
-            videoSource.setAttribute('src', videofile);
-            videoPlayer.load();
         }
 
     } else {
