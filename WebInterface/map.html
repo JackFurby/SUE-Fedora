@@ -131,42 +131,46 @@
                                     </div>
                                 </div>
 
-                                <div id="analysisChart" class="chart-container" style="display:none;">
-                                    <h4 id="chartTitle">Footage Analysis:</h4>
-                                    <canvas id="analysischart"></canvas>
-                                </div>
+                                <button onclick="toggleExplanations()" class="primary-btn" id="toggleMediaBtn">Toggle Explanations</button>
 
-                                <div id="analysisAudio" style="display:none;">
-                                    <h4 id="audioDetect">Audio Clip:</h4>
-                                    <audio id="audioPlayerDet" controls onplay="plotChartPoints()" >
-                                        <source id="detAudioSource" src="" type="audio/wav">
-                                        </audio>
-                                </div>
+                                <div id="explanantionsDiv" style="display:none;">
+                                  <div id="analysisChart" class="chart-container" style="display:none;">
+                                      <h4 id="chartTitle">Footage Analysis:</h4>
+                                      <canvas id="analysischart"></canvas>
+                                  </div>
 
-                                <div id="analysisVideo" class="chart-container" style="display:none;">
-                                    <h4>Footage Analysis:</h4>
-                                    <video id="videoAPlayer" controls autoplay loop>
-                                        <source id="videoASource" src="" type="video/mp4">
-                                    </video>
-                                </div>
+                                  <div id="analysisAudio" style="display:none;">
+                                      <h4 id="audioDetect">Audio Clip:</h4>
+                                      <audio id="audioPlayerDet" controls onplay="plotChartPoints()" >
+                                          <source id="detAudioSource" src="" type="audio/wav">
+                                          </audio>
+                                  </div>
 
-                                <div id="analysisImage" style="display:none;">
-                                    <h4>Video Explanation:</h4>
-                                    <img id="detImageSource" src="" />
-                                </div>
+                                  <div id="analysisVideo" class="chart-container" style="display:none;">
+                                      <h4>Footage Analysis:</h4>
+                                      <video id="videoAPlayer" controls autoplay loop>
+                                          <source id="videoASource" src="" type="video/mp4">
+                                      </video>
+                                  </div>
 
-                                <div id="mainVideo" style="display:none;">
-                                    <h4 id="videoDesc">Captured Footage:</h4>
-                                    <video id="videoPlayer" controls autoplay loop onplay="plotChartPoints()">
-                                        <source id="videoSource" src="" type="video/mp4">
-                                    </video>
-                                </div>
+                                  <div id="analysisImage" style="display:none;">
+                                      <h4>Video Explanation:</h4>
+                                      <img id="detImageSource" src="" />
+                                  </div>
 
-                                <div id="mainAudio" style="display:none;">
-                                    <h4 id="audioDesc">Captured Audio:</h4>
-                                    <audio id="audioPlayer" controls autoplay loop onplay="plotChartPoints()" >
-                                        <source id="audioSource" src="" type="audio/wav">
-                                    </audio>
+                                  <div id="mainVideo" style="display:none;">
+                                      <h4 id="videoDesc">Captured Footage:</h4>
+                                      <video id="videoPlayer" controls autoplay loop onplay="plotChartPoints()">
+                                          <source id="videoSource" src="" type="video/mp4">
+                                      </video>
+                                  </div>
+
+                                  <div id="mainAudio" style="display:none;">
+                                      <h4 id="audioDesc">Captured Audio:</h4>
+                                      <audio id="audioPlayer" controls autoplay loop onplay="plotChartPoints()" >
+                                          <source id="audioSource" src="" type="audio/wav">
+                                      </audio>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -199,5 +203,16 @@
 
         <script src="/chatroom/dist/Chatroom.js"></script>
         <script src="js/chatbot.js"></script>
+
+        <script>
+          function toggleExplanations() {
+            var x = document.getElementById("explanantionsDiv");
+            if (x.style.display === "none") {
+              x.style.display = "block";
+            } else {
+              x.style.display = "none";
+            }
+          }
+        </script>
     </body>
 </html>

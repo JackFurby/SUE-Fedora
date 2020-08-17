@@ -40,7 +40,7 @@ body {
 #map, div.sidebar {
     position: absolute;
     top: 0;
-    bottom: 0; 
+    bottom: 0;
     right: 0;
     left: 0;
 }
@@ -61,7 +61,7 @@ body {
     font-weight: normal;
 }
 
-.row { 
+.row {
     margin-right: 0px;
 }
 
@@ -138,6 +138,19 @@ div.hidden div.mapanalysis {
     transform: rotate(180deg);
     margin: 4px 6px;
 }
+
+.primary-btn {
+  background-color: hsl(210, 40%, 40%);
+  color: white;
+  padding: 5px;
+  margin: 0 auto;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.primary-btn:hover {
+  background-color: hsl(210, 40%, 20%);
+}
 /* ******* END Toggle Button ******* */
 
 /* ******* Details Left Overlay ******* */
@@ -161,7 +174,7 @@ div.hidden div.mapanalysis {
     overflow: hidden;
 }
 
-.overlay-page.hidden { 
+.overlay-page.hidden {
     display: none;
 }
 
@@ -365,14 +378,14 @@ audio#audioPlayer {
     left: 50%;
     margin-left: -3px;
 }
-  
+
 .tcontainer {
     position: relative;
     background-color: inherit;
     width: 50%;
     padding: 10px 20px;
 }
-  
+
 .tcontainer::after {
     content: '';
     position: absolute;
@@ -401,7 +414,7 @@ audio#audioPlayer {
 .tcontainer.red::after {
     border: 4px solid #f91c1c;
 }
-  
+
 .timeline .left {
     left: 0;
 }
@@ -409,7 +422,7 @@ audio#audioPlayer {
 .timeline .right {
     left: 50%;
 }
-  
+
 .timeline .left::before {
     content: " ";
     height: 0;
@@ -422,7 +435,7 @@ audio#audioPlayer {
     border-width: 10px 0 10px 10px;
     border-color: transparent transparent transparent white;
 }
-  
+
 .timeline .right::before {
     content: " ";
     height: 0;
@@ -435,36 +448,36 @@ audio#audioPlayer {
     border-width: 10px 10px 10px 0;
     border-color: transparent white transparent transparent;
 }
-  
+
 .timeline .right::after {
     left: -10px;
 }
-  
+
 .content {
     padding: 20px 30px;
     background-color: white;
     position: relative;
     border-radius: 6px;
 }
-  
+
 @media screen and (max-width: 600px) {
     .timeline::after {
       left: 31px;
     }
-  
+
     .tcontainer {
       width: 100%;
       padding-left: 70px;
       padding-right: 25px;
     }
-  
+
     .tcontainer::before {
       left: 60px;
       border: medium solid white;
       border-width: 10px 10px 10px 0;
       border-color: transparent white transparent transparent;
     }
-  
+
     .timeline .left::after, .timeline .right::after {
       left: 15px;
     }

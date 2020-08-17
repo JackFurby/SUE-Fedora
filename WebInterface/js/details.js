@@ -39,6 +39,9 @@ const audioDesc = document.getElementById("audioDesc");
 const audioSource = document.getElementById("audioSource");
 const audioPlayer = document.getElementById("audioPlayer");
 
+const toggleMediaBtn = document.getElementById("toggleMediaBtn");
+const toggleMediaDiv = document.getElementById("explanantionsDiv");
+
 async function toggleDetailsFromMap(e){
 
     let info = await getProperties(this, false);
@@ -242,6 +245,9 @@ function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRev
             detailsName.innerHTML = json.sensorName;
             detailsText.innerHTML = "Lat/Long: " + coordinates;
 
+            toggleMediaBtn.style.display = "none";
+            toggleMediaDiv.style.display = "block";
+
             if (audiofile != null) {
                 audioDesc.innerHTML = "Captured Audio :";
                 if (!audioPlayer.classList.contains("sensorAudio")) { audioPlayer.classList.add("sensorAudio"); }
@@ -269,6 +275,9 @@ function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRev
             detailsID.innerHTML = json.eventID;
             detailsName.innerHTML = json.eventName;
             detailsText.innerHTML = "Description: " + json.description + "<br>Datetime: " + json.datetime + "<br>Lat/Long: " + coordinates;
+
+            toggleMediaBtn.style.display = "block";
+            toggleMediaDiv.style.display = "none";
 
             if (audiofile != null) {
                 audioDesc.innerHTML = "Audio From Microphone :";
