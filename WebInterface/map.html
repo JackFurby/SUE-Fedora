@@ -111,7 +111,7 @@
                                                 <div class="carousel-item ">
                                                     <div id="objDetVideo" class="chart-container">
                                                         <h4>Object Detection Video:</h4>
-                                                        <video id="objDetPlayer" controls autoplay loop>
+                                                        <video id="objDetPlayer" controls>
                                                             <source id="objDetSource" src="" type="video/mp4">
                                                         </video>
                                                     </div>
@@ -148,7 +148,7 @@
 
                                   <div id="analysisVideo" class="chart-container" style="display:none;">
                                       <h4>Footage Analysis:</h4>
-                                      <video id="videoAPlayer" controls autoplay loop>
+                                      <video id="videoAPlayer" controls>
                                           <source id="videoASource" src="" type="video/mp4">
                                       </video>
                                   </div>
@@ -160,7 +160,7 @@
 
                                   <div id="mainVideo" style="display:none;">
                                       <h4 id="videoDesc">Captured Footage:</h4>
-                                      <video id="videoPlayer" controls autoplay loop onplay="plotChartPoints()">
+                                      <video id="videoPlayer" onplay="plotChartPoints()">
                                           <source id="videoSource" src="" type="video/mp4">
                                       </video>
                                   </div>
