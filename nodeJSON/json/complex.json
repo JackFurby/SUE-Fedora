@@ -1,3 +1,16 @@
 {
-    "connections": []
+    "connections": [
+        {
+            "properties": {
+                "complexID": 1,
+                "complexName": "Complex Event 1",
+                "events": [
+                    2,
+                    3,
+                    4
+                ],
+                "datetime": "2020-08-13T17:23:35Z"
+            }
+        }
+    ]
 }
