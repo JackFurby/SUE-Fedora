@@ -219,7 +219,10 @@ async function getProperties(layer, graph) {
         let allProperties = (JSON.parse(layer.options.properties));
         let keys = Object.keys(allProperties);
         if (graph) { properties = keys[0]; }
-        else { properties = await compileProperties(allProperties, keys, true); }
+        else {
+          allProperties.id = layer.options.id;
+          properties = await compileProperties(allProperties, keys, true);
+        }
 
     } catch {
         console.log("No properties found on layer");
@@ -273,12 +276,17 @@ function compileProperties(properties, keys, time) {
                 if (item.slctRevVideo != null) {
                     fullProperties.slctRevVideo = item.slctRevVideo;
                 }
+                if (item.detAudio != null) {
+                    fullProperties.detAudio = item.detAudio;
+                }
+                if (item.detImage != null) {
+                    fullProperties.detImage = item.detImage;
+                }
                 if (item.priority != null) {
                     fullProperties.priority = item.priority;
                 }
-                if (item.datetime != null) {
-                    fullProperties.datetime = item.datetime;
-                }
+                fullProperties.datetime = keys[i];
+                fullProperties.eventID = properties.id
         
             } else if (type.toLowerCase() == "sensor") {
                 if (item.sensorName != null) {
@@ -299,6 +307,7 @@ function compileProperties(properties, keys, time) {
                 if (item.rangeDirection != null) {
                     fullProperties.rangeDirection = item.rangeDirection;
                 }
+                fullProperties.sensorID = properties.id
             
             } else {
                 if (item.complexName != null) {
@@ -307,9 +316,11 @@ function compileProperties(properties, keys, time) {
                 if (item.events != null) {
                     fullProperties.events = item.events;
                 }
-                if (item.datetime != null) {
-                    fullProperties.datetime = item.datetime;
+                if (item.eventDetails != null) {
+                    fullProperties.eventDetails = item.eventDetails;
                 }
+                fullProperties.datetime = keys[i];
+                fullProperties.complexID = properties.id
             }
 
             if ( type.toLowerCase() != "complex" && item.coordinates != null ) {
