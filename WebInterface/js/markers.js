@@ -115,7 +115,7 @@ async function addMarker(json, sensor, layer) {
                 ranges.push(newRange);
                 radius = radius + 5;
             }
-        } 
+        }
 
         if (layer == "sensorCamera") {
             // Update map layer with new marker and ranges
@@ -124,11 +124,11 @@ async function addMarker(json, sensor, layer) {
         } else if (layer == "sensorMicrophone") {
             // Use default sensor marker with microphone icon
             sensorMarker.setIcon(microphoneIcon);
-    
+
         } else if (layer == "sensorHuman") {
             // Use default sensor marker with human icon
             sensorMarker.setIcon(humanIcon);
-        
+
         } else if (layer == "sensorUK") {
             // Use default sensor marker with uk flag icon
             sensorMarker.setIcon(ukIcon);
@@ -140,7 +140,7 @@ async function addMarker(json, sensor, layer) {
 
         // Update map layer with new marker and ranges
         addMarkerToLayer(sensorMarker, ranges, window[layer], window[layer + "Range"]);
-    
+
     } else {
         let objID = json.eventID;
 
@@ -155,11 +155,11 @@ async function addMarker(json, sensor, layer) {
         } else if (current.priority == 3) {
             iconChoice = (window.accessibility == false ? yellowIcon : cbYellowIcon);
             colourChoice = (window.accessibility == false ? '#FEDD80' : '#70D4E5');
-        
+
         } else if (current.priority == 2) {
             iconChoice = (window.accessibility == false ? orangeIcon : cbOrangeIcon);
             colourChoice = (window.accessibility == false ? '#FEA080' : '#FE9D85');
-        
+
         } else if (current.priority == 1) {
             iconChoice = (window.accessibility == false ? redIcon : cbRedIcon);
             colourChoice = (window.accessibility == false ? '#FE7F7F' : '#EC6C71');
@@ -168,7 +168,7 @@ async function addMarker(json, sensor, layer) {
         // Create an event marker with the icon determined above
         let eventmarker = L.marker(coordinates, {id: objID, icon: iconChoice, properties: JSON.stringify(json.properties), open: false, hidden: false}).on('click', toggleDetailsFromMap);
         eventmarker.bindPopup(current.eventName);
-        
+
         // Creating a varying outer range for events determined randomly from list of avaliable ranges
         let rangeRadius = [90, 80, 70, 60, 50, 40, 30];
         let rad = rangeRadius[Math.floor(Math.random() * rangeRadius.length)];
@@ -176,7 +176,7 @@ async function addMarker(json, sensor, layer) {
         // Add range circles to list
         ranges.push(L.circle(coordinates, {radius: eventRadius*1/4, fillColor: colourChoice, color: colourChoice, fillOpacity: 0.6, weight: 3, gradient: true, id: objID, properties: JSON.stringify(json.properties), hidden: false}));
         ranges.push(L.circle(coordinates, {radius: rad, fillColor: colourChoice, color: colourChoice, fillOpacity: 0.4, weight: 3, gradient: true, id: objID, properties: JSON.stringify(json.properties), hidden: false}));
-        
+
         // Add event marker and its ranges to the appropriate layer
         if (current.priority == 4) {
             addMarkerToLayer(eventmarker, ranges, window.lowPriorityEvent, window.lowPriorityEventRange);
@@ -234,7 +234,7 @@ async function getProperties(layer, graph) {
 function compileProperties(properties, keys, time) {
     let fullProperties = {};
     let type = properties.initial != null ? "sensor" : (properties[keys[0]].events != null ? "complex" : "event");
-    
+
     let currentTime = null;
     if ( window.timePoint != null && time ) {
         let splitTime = window.timePoint.split(":");
@@ -253,6 +253,8 @@ function compileProperties(properties, keys, time) {
 
         if ( currentTime == null || propertiesTime < currentTime ) {
             let item = properties[keys[i]];
+            console.log(item);
+            console.log(keys[i]);
 
             if (type.toLowerCase() == "event") {
                 if (item.eventName != null) {
@@ -287,7 +289,7 @@ function compileProperties(properties, keys, time) {
                 }
                 fullProperties.datetime = keys[i];
                 fullProperties.eventID = properties.id
-        
+
             } else if (type.toLowerCase() == "sensor") {
                 if (item.sensorName != null) {
                     fullProperties.sensorName = item.sensorName;
@@ -308,7 +310,7 @@ function compileProperties(properties, keys, time) {
                     fullProperties.rangeDirection = item.rangeDirection;
                 }
                 fullProperties.sensorID = properties.id
-            
+
             } else {
                 if (item.complexName != null) {
                     fullProperties.complexName = item.complexName;
@@ -407,17 +409,17 @@ async function updateProperties(marker, update, type, isRange) {
 // Get icon by sensor type/owner, event priority, or complex event
 function getIcon(properties, ownerSensor) {
     if (properties.sensorType != null) {
-        if (ownerSensor) { 
-            return (properties.owner == "UK" ? ukIcon : usIcon); 
-        } else { 
-            return (properties.sensorType == "Camera" ? cameraIcon : properties.sensorType == "Microphone" ? microphoneIcon : humanIcon); 
+        if (ownerSensor) {
+            return (properties.owner == "UK" ? ukIcon : usIcon);
+        } else {
+            return (properties.sensorType == "Camera" ? cameraIcon : properties.sensorType == "Microphone" ? microphoneIcon : humanIcon);
         }
     } else if (properties.priority != null) {
         if (window.accessibility) {
             return (properties.priority == 1 ? cbRedIcon : properties.priority == 2 ? cbOrangeIcon : properties.priority == 3 ? cbYellowIcon : cbBlueIcon);
         } else {
             return (properties.priority == 1 ? redIcon : properties.priority == 2 ? orangeIcon : properties.priority == 3 ? yellowIcon : blueIcon);
-        }        
+        }
     } else {
         return complexIcon;
     }
