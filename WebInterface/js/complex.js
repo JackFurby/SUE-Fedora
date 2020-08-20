@@ -4,7 +4,7 @@ async function processComplexEvent(json) {
     let currentComplexLst = window.currentComplex;
     if (json != null) { currentComplexLst.push(json); }
 
-    let refinedList = await refineList(currentComplexLst); 
+    let refinedList = await refineList(currentComplexLst);
     window.currentComplex = refinedList;
 
     if (refinedList != currentComplexLst) {
@@ -29,7 +29,7 @@ async function addComplexMarker(complex) {
         let item = await getProperties(events[i], false);
 
         let coordinates = item.coordinates;
-       
+
         lat += coordinates[0];
         long += coordinates[1];
 
@@ -63,16 +63,16 @@ async function addComplexMarker(complex) {
         complexevent = L.marker(markerCoordinates, {id: complex.properties.complexID, icon: complexIcon, properties: JSON.stringify(finishedProperties), open: false}).on('click', toggleDetailsFromMap).addTo(window.complexEvent);
         complexevent.bindPopup(complex.properties.complexName)
 
-        await sendUpdateToChat("Complex Event", complex.properties.complexID, complex.properties.complexName);
+        await sendUpdateToChat("Complex Event", complex.properties.complexID, complex.properties.complexName, null, null);
     }
-    
+
     toggleLayer(window.complexEvent);
 };
 
 function refineList(list) {
     let refinedList = [];
     let complexList = [];
-      
+
     for ( let i in list ) {
         let newEvents = list[i].properties.events;
         let okayToAdd = true;
