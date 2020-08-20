@@ -58,6 +58,9 @@ const audioDesc = document.getElementById("audioDesc");
 const audioSource = document.getElementById("audioSource");
 const audioPlayer = document.getElementById("audioPlayer");
 
+const toggleMediaBtn = document.getElementById("toggleMediaBtn");
+const toggleMediaDiv = document.getElementById("explanantionsDiv");
+
 async function toggleDetailsFromMap(e){
 
     let info = await getProperties(this, false);
@@ -226,6 +229,9 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             detailsName.innerHTML = json.sensorName;
             detailsText.innerHTML = "Lat/Long: " + coordinates;
 
+            toggleMediaBtn.style.display = "none";
+            toggleMediaDiv.style.display = "block";
+
             if (audiofile != null) {
                 audioDesc.innerHTML = "Captured Audio :";
                 if (!audioPlayer.classList.contains("sensorAudio")) { audioPlayer.classList.add("sensorAudio"); }
@@ -235,11 +241,27 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
                 if (!videoPlayer.classList.contains("sensorVideo")) { videoPlayer.classList.add("sensorVideo"); }
             }
 
+            if (audiofile != null) {
+                sensorVideo.style.display = "none";
+                sensorAudio.style.display = "block";
+                audioSource.setAttribute('src', audiofile);
+                audioPlayer.load();
+
+            } else {
+                sensorAudio.style.display = "none";
+                sensorVideo.style.display = "block";
+                videoSource.setAttribute('src', videofile);
+                videoPlayer.load();
+            }
+
         } else {
 
             detailsID.innerHTML = json.eventID;
             detailsName.innerHTML = json.eventName;
             detailsText.innerHTML = "Description: " + json.description + "<br>Datetime: " + json.datetime + "<br>Lat/Long: " + coordinates;
+
+            toggleMediaBtn.style.display = "block";
+            toggleMediaDiv.style.display = "none";
 
             if (audiofile != null) {
                 audioDesc.innerHTML = "Audio From Microphone :";
@@ -328,19 +350,21 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
                     carouselNext.classList.remove("hidden")
                 }
             }
-        }
 
-        if (audiofile != null) {
-            sensorVideo.style.display = "none";
-            sensorAudio.style.display = "block";
-            audioSource.setAttribute('src', audiofile);
-            audioPlayer.load();
 
-        } else {
-            sensorAudio.style.display = "none";
-            sensorVideo.style.display = "block";
-            videoSource.setAttribute('src', videofile);
-            videoPlayer.load();
+            if (audiofile != null) {
+                sensorVideo.style.display = "none";
+                sensorAudio.style.display = "none";
+                audioSource.setAttribute('src', audiofile);
+                audioPlayer.load();
+
+            } else {
+                sensorAudio.style.display = "none";
+                sensorVideo.style.display = "none";
+                videoSource.setAttribute('src', videofile);
+                videoPlayer.load();
+            }
+
         }
 
     } else {
