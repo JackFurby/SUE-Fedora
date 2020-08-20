@@ -98,77 +98,81 @@
 
                                 <div class="timeline" id="eventTimeline" style="display: none"></div>
 
-                                <div class="row carouselRow">
-                                    <div class="col carouselCol">
-                                        <div id="analysisCarousel" class="carousel slide" data-interval="false" style="display:none;">
-                                            <div class="carousel-inner">
+                                <button onclick="toggleExplanations()" class="primary-btn" id="toggleMediaBtn">Toggle Explanations</button>
 
-                                                <div id="analysisChartDiv" class="carousel-item">
-                                                    <h4>Analysis Chart:</h4>
-                                                    <div id="analysisChartContainer" class="chart-container">
-                                                        <canvas id="analysisChart"></canvas>
-                                                    </div>
-                                                </div>
+                                <div id="explanantionsDiv">
+                                  <div class="row carouselRow">
+                                      <div class="col carouselCol">
+                                          <div id="analysisCarousel" class="carousel slide" data-interval="false" style="display:none;">
+                                              <div class="carousel-inner">
 
-                                                <div id="analysisImageDiv" class="carousel-item">
-                                                    <h4>Image Analysis:</h4>
-                                                    <div class="chart-container">
-                                                        <img id="analysisImage" src="" />
-                                                    </div>
-                                                </div>
+                                                  <div id="analysisChartDiv" class="carousel-item">
+                                                      <h4>Analysis Chart:</h4>
+                                                      <div id="analysisChartContainer" class="chart-container">
+                                                          <canvas id="analysisChart"></canvas>
+                                                      </div>
+                                                  </div>
 
-                                                <div id="objDetVideoDiv" class="carousel-item">
-                                                    <h4>Object Detection Video:</h4>
-                                                    <div class="chart-container">
-                                                        <video id="objDetVideo" controls>
-                                                            <source id="objDetVideoSrc" src="" type="video/mp4">
-                                                        </video>
-                                                    </div>
-                                                </div>
+                                                  <div id="analysisImageDiv" class="carousel-item">
+                                                      <h4>Image Analysis:</h4>
+                                                      <div class="chart-container">
+                                                          <img id="analysisImage" src="" />
+                                                      </div>
+                                                  </div>
 
-                                                <div id="analysisVideoDiv" class="carousel-item">
-                                                    <h4>Video Analysis:</h4>
-                                                    <div class="chart-container">
-                                                        <video id="analysisVideo" controls>
-                                                            <source id="analysisVideoSrc" src="" type="video/mp4">
-                                                        </video>
-                                                    </div>
-                                                </div>
+                                                  <div id="objDetVideoDiv" class="carousel-item">
+                                                      <h4>Object Detection Video:</h4>
+                                                      <div class="chart-container">
+                                                          <video id="objDetVideo" controls>
+                                                              <source id="objDetVideoSrc" src="" type="video/mp4">
+                                                          </video>
+                                                      </div>
+                                                  </div>
 
-                                                <div id="analysisAudioDiv" class="carousel-item">
-                                                    <h4>Audio Analysis:</h4>
-                                                    <div class="chart-container">
-                                                        <audio id="analysisAudio" controls>
-                                                            <source id="analysisAudioSrc" src="" type="audio/wav">
-                                                        </audio>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                  <div id="analysisVideoDiv" class="carousel-item">
+                                                      <h4>Video Analysis:</h4>
+                                                      <div class="chart-container">
+                                                          <video id="analysisVideo" controls>
+                                                              <source id="analysisVideoSrc" src="" type="video/mp4">
+                                                          </video>
+                                                      </div>
+                                                  </div>
 
-                                            <a id="carouselPrev" class="carousel-control-prev" href="#analysisCarousel" role="button" data-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a id="carouselNext" class="carousel-control-next" href="#analysisCarousel" role="button" data-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                                  <div id="analysisAudioDiv" class="carousel-item">
+                                                      <h4>Audio Analysis:</h4>
+                                                      <div class="chart-container">
+                                                          <audio id="analysisAudio" controls>
+                                                              <source id="analysisAudioSrc" src="" type="audio/wav">
+                                                          </audio>
+                                                      </div>
+                                                  </div>
+                                              </div>
 
-                                <div id="sensorVideo" class="sensorFootage" style="display:none;">
-                                    <h4 id="videoDesc">Captured Footage:</h4>
-                                    <video id="videoPlayer" onplay="plotChartPoints()">
-                                        <source id="videoSource" src="" type="video/mp4">
-                                    </video>
-                                </div>
+                                              <a id="carouselPrev" class="carousel-control-prev" href="#analysisCarousel" role="button" data-slide="prev">
+                                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                  <span class="sr-only">Previous</span>
+                                              </a>
+                                              <a id="carouselNext" class="carousel-control-next" href="#analysisCarousel" role="button" data-slide="next">
+                                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                  <span class="sr-only">Next</span>
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
 
-                                <div id="sensorAudio" class="sensorFootage" style="display:none;">
-                                    <h4 id="audioDesc">Captured Audio:</h4>
-                                    <audio id="audioPlayer" controls autoplay loop onplay="plotChartPoints()" >
-                                        <source id="audioSource" src="" type="audio/wav">
-                                    </audio>
+                                  <div id="sensorVideo" class="sensorFootage" style="display:none;">
+                                      <h4 id="videoDesc">Captured Footage:</h4>
+                                      <video id="videoPlayer" onplay="plotChartPoints()">
+                                          <source id="videoSource" src="" type="video/mp4">
+                                      </video>
+                                  </div>
+
+                                  <div id="sensorAudio" class="sensorFootage" style="display:none;">
+                                      <h4 id="audioDesc">Captured Audio:</h4>
+                                      <audio id="audioPlayer" controls autoplay loop onplay="plotChartPoints()" >
+                                          <source id="audioSource" src="" type="audio/wav">
+                                      </audio>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -201,5 +205,17 @@
         <script src='js/details.js'></script>
         <script src='js/graph.js'></script>
         <script src="js/complex.js"></script>
+
+
+        <script>
+         function toggleExplanations() {
+           var x = document.getElementById("explanantionsDiv");
+           if (x.style.display === "none") {
+             x.style.display = "block";
+           } else {
+             x.style.display = "none";
+           }
+         }
+       </script>
     </body>
 </html>
