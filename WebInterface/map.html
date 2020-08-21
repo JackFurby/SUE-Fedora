@@ -98,8 +98,6 @@
 
                                 <div class="timeline" id="eventTimeline" style="display: none"></div>
 
-                                <button onclick="toggleExplanations()" class="primary-btn" id="toggleMediaBtn">Toggle Explanations</button>
-
                                 <div id="explanantionsDiv">
                                   <div class="row carouselRow">
                                       <div class="col carouselCol">
@@ -141,7 +139,7 @@
                                                   <div id="analysisAudioDiv" class="carousel-item">
                                                       <h4>Audio Analysis:</h4>
                                                       <div class="chart-container">
-                                                          <audio id="analysisAudio" controls>
+                                                          <audio id="analysisAudio" controls style="margin-left:35px;">
                                                               <source id="analysisAudioSrc" src="" type="audio/wav">
                                                           </audio>
                                                       </div>
@@ -173,7 +171,7 @@
                                           <source id="audioSource" src="" type="audio/wav">
                                       </audio>
                                   </div>
-                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -206,16 +204,5 @@
         <script src='js/graph.js'></script>
         <script src="js/complex.js"></script>
 
-
-        <script>
-         function toggleExplanations() {
-           var x = document.getElementById("explanantionsDiv");
-           if (x.style.display === "none") {
-             x.style.display = "block";
-           } else {
-             x.style.display = "none";
-           }
-         }
-       </script>
     </body>
 </html>
