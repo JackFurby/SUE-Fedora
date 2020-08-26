@@ -65,15 +65,15 @@ async function toggleDetailsFromMap(e){
     if (this.options.open == false) {
         if (window.prvClickedMarker != null) { window.prvClickedMarker.options.open = false; }
         this.options.open = true;
- 
+
         showPanel("marker");
-        await toggleDetails(info, e.latlng.toString().slice(7, -1));
+        await showDetails(info, e.latlng.toString().slice(7, -1));
         window.prvClickedMarker = this;
 
-    } else {
+    } else if (e != null) {
         this.options.open = false;
 
-        await toggleDetails(info, e.latlng.toString().slice(7, -1));
+        clearDetailsMedia();
         showPanel("chat");
         window.prvClickedMarker = null;
     }
@@ -86,69 +86,79 @@ async function toggleDetailsFromFunction(layer){
     if (layer.options.open == false) {
         if (window.prvClickedMarker != null) { window.prvClickedMarker.options.open = false; }
         layer.options.open = true;
-        layer.togglePopup();
- 
+        layer.openPopup();
+
         showPanel("marker");
-        await toggleDetails(info, layer.getLatLng().toString().slice(7, -1));
+        await showDetails(info, layer.getLatLng().toString().slice(7, -1));
         window.prvClickedMarker = layer;
 
     } else {
         layer.options.open = false;
-        layer.togglePopup();
+        layer.closePopup();
 
-        await toggleDetails(info, layer.getLatLng().toString().slice(7, -1));
+        clearDetailsMedia();
         showPanel("chat");
         window.prvClickedMarker = null;
     }
+};
+
+async function showPopup(layer) {
+    if ( layer != null ) { layer.openPopup(); }
+    else { window.prvClickedMarker.openPopup(); }
 };
 
 function showPanel(selectedPanel) {
     let panel = (selectedPanel.toLowerCase() == "chat" ? chatPanel : (selectedPanel == "analysis" ? analysisPanel : markerPanel));
     let toggle = (selectedPanel.toLowerCase() == "chat" ? chatToggle : (selectedPanel == "analysis" ? analysisToggle : markerToggle));;
 
-    if (panel.classList.contains("hidden")) {
-        if ( selectedPanel.toLowerCase() != "chat" ) {
-            if ( !chatPanel.classList.contains("hidden") ) {
-                chatPanel.classList.add("hidden")
-            }
-            if ( chatToggle.classList.contains("active") ) {
-                chatToggle.classList.remove("active")
-            }
+    if ( selectedPanel.toLowerCase() != "chat" ) {
+        if ( !chatPanel.classList.contains("hidden") ) {
+            chatPanel.classList.add("hidden")
         }
-
-        if ( selectedPanel.toLowerCase() != "analysis" ) {
-            if ( !analysisPanel.classList.contains("hidden") ) {
-                analysisPanel.classList.add("hidden")
-            }
-            if ( analysisToggle.classList.contains("active") ) {
-                analysisToggle.classList.remove("active")
-            }
+        if ( chatToggle.classList.contains("active") ) {
+            chatToggle.classList.remove("active")
         }
+    }
 
-        if ( selectedPanel.toLowerCase() != "marker" ) {
-            if ( !markerPanel.classList.contains("hidden") ) {
-                markerPanel.classList.add("hidden")
-            }
-            if ( markerToggle.classList.contains("active") ) {
-                markerToggle.classList.remove("active")
-            }
+    if ( selectedPanel.toLowerCase() != "analysis" ) {
+        if ( !analysisPanel.classList.contains("hidden") ) {
+            analysisPanel.classList.add("hidden")
         }
+        if ( analysisToggle.classList.contains("active") ) {
+            analysisToggle.classList.remove("active")
+        }
+    }
 
-        panel.classList.remove("hidden");
-        toggle.classList.add("active");
+    if ( selectedPanel.toLowerCase() != "marker" ) {
+        if ( !markerPanel.classList.contains("hidden") ) {
+            markerPanel.classList.add("hidden")
+        }
+        if ( markerToggle.classList.contains("active") ) {
+            markerToggle.classList.remove("active")
+        }
+    }
+
+    if ( panel.classList.contains("hidden") ) {
+        panel.classList.remove("hidden")
+    }
+    if ( !toggle.classList.contains("active") ) {
+        toggle.classList.add("active")
     }
 };
 
-async function toggleDetails(json, coordinates){
+async function showDetails(json, coordinates){
 
     let type = (json.eventID != null) ? "Event" : ((json.sensorID != null) ? "Sensor" : "Complex");
-    let id = (type == "Event") ? json.eventID : ((type == "Sensor") ? json.sensorID : json.complexID);
 
     let chartdata = json.chartPoints;
     let objdetfile = ((json.objDetVideo != null) ? videoLink + json.objDetVideo : null);
     let slctRevVideo = ((json.slctRevVideo != null) ? videoLink + json.slctRevVideo : null);
     let detAudio = ((json.detAudio != null) ? audioLink + json.detAudio : null);
     let detImage = ((json.detImage != null) ? videoLink + json.detImage : null);
+    // let objdetfile = ((json.objDetVideo != null) ? json.objDetVideo : null);
+    // let slctRevVideo = ((json.slctRevVideo != null) ? json.slctRevVideo : null);
+    // let detAudio = ((json.detAudio != null) ? json.detAudio : null);
+    // let detImage = ((json.detImage != null) ? json.detImage : null);
 
     let videofile = null;
     let audiofile = null;
@@ -160,38 +170,27 @@ async function toggleDetails(json, coordinates){
         if (sensor != null) {
             videofile = ((sensor.video != null) ? videoLink + sensor.video : null);
             audiofile = ((sensor.audio != null) ? audioLink + sensor.audio : null);
+            // videofile = ((sensor.video != null) ? sensor.video : null);
+            // audiofile = ((sensor.audio != null) ? sensor.audio : null);
         }
 
     } else if (type == "Sensor") {
         videofile = ((json.video != null) ? videoLink + json.video : null);
         audiofile = ((json.audio != null) ? audioLink + json.audio : null);
+        // videofile = ((json.video != null) ? json.video : null);
+        // audiofile = ((json.audio != null) ? json.audio : null);
+
     }
 
     let timelineInfo = json.eventDetails;
 
-    if (detailsID.innerHTML != id && markerPanel.classList.contains('hidden') === false) {
+    clearDetailsMedia()
 
-        clearDetailsMedia()
-
-        AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRevVideo, detImage, detAudio, videofile, audiofile, timelineInfo)
-
-    } else if (markerPanel.classList.contains('hidden') === false) {
-
-        markerPanel.classList.add('hidden');
-
-        clearDetailsMedia()
-
-    } else {
-
-        markerPanel.classList.remove('hidden');
-
-        clearDetailsMedia()
-
-        AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRevVideo, detImage, detAudio, videofile, audiofile, timelineInfo)
-    }
+    AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, slctRevVideo, detImage, detAudio, videofile, audiofile, timelineInfo)
 };
 
 function clearDetailsMedia() {
+
     detailsID.innerHTML = "";
     detailsName.innerHTML = "";
     detailsText.innerHTML = "";
@@ -290,6 +289,7 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
 
             if (detImage != null) {
                 analysisImage.setAttribute('src', detImage);
+                //getFile(detImage, "analysisImage", null);
                 totalCarousel ++;
 
                 if ( !analysisImageDiv.classList.contains("carousel-item") ) { analysisImageDiv.classList.add("carousel-item"); analysisImageDiv.classList.remove("hidden"); }
@@ -303,6 +303,7 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             if (objdetfile != null) {
                 objDetVideoSrc.setAttribute('src', objdetfile);
                 objDetVideo.load();
+                //getFile(objdetfile, "objDetVideoSrc", "objDetVideo");
                 totalCarousel ++;
 
                 if ( !objDetVideoDiv.classList.contains("carousel-item") ) { objDetVideoDiv.classList.add("carousel-item"); objDetVideoDiv.classList.remove("hidden"); }
@@ -316,6 +317,7 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             if (slctRevVideo != null) {
                 analysisVideoSrc.setAttribute('src', slctRevVideo);
                 analysisVideo.load();
+                //getFile(slctRevVideo, "analysisVideoSrc", "analysisVideo");
                 totalCarousel ++;
 
                 if ( !analysisVideoDiv.classList.contains("carousel-item") ) { analysisVideoDiv.classList.add("carousel-item"); analysisVideoDiv.classList.remove("hidden"); }
@@ -329,6 +331,7 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             if (detAudio != null) {
                 analysisAudioSrc.setAttribute('src', detAudio);
                 analysisAudio.load();
+                //getFile(detAudio, "analysisAudioSrc", "analysisAudio");
                 totalCarousel ++;
 
                 if ( !analysisAudioDiv.classList.contains("carousel-item") ) { analysisAudioDiv.classList.add("carousel-item"); analysisAudioDiv.classList.remove("hidden"); }
@@ -357,12 +360,14 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             sensorAudio.style.display = "block";
             audioSource.setAttribute('src', audiofile);
             audioPlayer.load();
+            //getFile(audiofile, "audioSource", "audioPlayer");
 
         } else {
             sensorAudio.style.display = "none";
             sensorVideo.style.display = "block";
             videoSource.setAttribute('src', videofile);
             videoPlayer.load();
+            //getFile(videofile, "videoSource", "videoPlayer");
         }
 
     } else {
@@ -379,6 +384,9 @@ async function AddDetailsMedia(json, coordinates, type, chartdata, objdetfile, s
             div0.classList.add("tcontainer");
             div0.classList.add((timelineInfo[item].priority == 4) ? "blue" : ((timelineInfo[item].priority == 3) ? "yellow" : ((timelineInfo[item].priority == 2) ? "orange" : "red")));
             div0.classList.add((i%2 == 0) ? "left" : "right");
+            div0.setAttribute("onmouseover", "showHoveredEvent(" + timelineInfo[item].id + ")");
+            div0.setAttribute("onmouseout", "showHoveredEvent(null)");
+            div0.setAttribute("onclick", "openEventDetails(" + timelineInfo[item].id + ")");
 
             let div1 = document.createElement("div");
             div1.classList.add("content");
@@ -437,4 +445,18 @@ function addToCarouselList(id, active) {
     if (active) { item.classList.add("active"); }
 
     carouselItems.appendChild(item);
+};
+
+async function fillInElement(parsedMessage) {
+
+    let file = parsedMessage.files[0];
+
+    let source = document.getElementById(window.elementToFill[file.name].source);
+    let player = null;
+    if ( window.elementToFill[file.name].player != null ) { player = document.getElementById(window.elementToFill[file.name].player); }
+
+    source.setAttribute('src', "data:" + file.type + ";base64," + file.data);
+    if ( player != null ) { player.load(); }
+
+    delete window.elementToFill[file.name];
 };

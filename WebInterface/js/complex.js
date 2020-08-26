@@ -1,4 +1,5 @@
 window.currentComplex = [];
+window.complexEventsAdded = [];
 
 async function processComplexEvent(json) {
     let currentComplexLst = window.currentComplex;
@@ -33,7 +34,7 @@ async function addComplexMarker(complex) {
         lat += coordinates[0];
         long += coordinates[1];
 
-        let obj = {datetime: item.datetime, name: item.eventName, description: item.eventType + " - " + item.description, coordinates: coordinates[0] + ", " + coordinates[1], priority: item.priority};
+        let obj = {datetime: item.datetime, id: item.eventID, name: item.eventName, description: item.eventType + " - " + item.description, coordinates: coordinates[0] + ", " + coordinates[1], priority: item.priority};
 
         eventCoordinates.push(coordinates);
         eventDetails.push(obj);
@@ -54,16 +55,20 @@ async function addComplexMarker(complex) {
         let cmplxproperties = complex.properties;
         cmplxproperties.eventDetails = eventDetails;
 
+        let id = complex.properties.complexID;
 
         let datetime = new Date(complex.properties.datetime);
         let updateTime = buildISOString( datetime, null );
         let finishedProperties = { [updateTime]: cmplxproperties };
 
         L.polyline(coordinates, {color: "#ee133b", properties: JSON.stringify(finishedProperties)}).addTo(window.complexEvent);
-        complexevent = L.marker(markerCoordinates, {id: complex.properties.complexID, icon: complexIcon, properties: JSON.stringify(finishedProperties), open: false}).on('click', toggleDetailsFromMap).addTo(window.complexEvent);
+        complexevent = L.marker(markerCoordinates, {id: id, icon: complexIcon, properties: JSON.stringify(finishedProperties), open: false}).on('click', toggleDetailsFromMap).addTo(window.complexEvent);
         complexevent.bindPopup(complex.properties.complexName)
 
-        await sendUpdateToChat("Complex Event", complex.properties.complexID, complex.properties.complexName);
+        if ( window.complexEventsAdded.indexOf(id) == -1 ) {
+            await sendUpdateToChat("Complex Event", id, complex.properties.complexName);
+            window.complexEventsAdded.push(id);
+        };
     }
     
     toggleLayer(window.complexEvent);
