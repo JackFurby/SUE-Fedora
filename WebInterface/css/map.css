@@ -186,7 +186,7 @@ body {
     padding: 10px;
     border-radius: 1px;
     height: 80vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .sidebar-main.mapanalysis {
@@ -232,20 +232,20 @@ canvas#analysisChart {
     background-color: hsl(210, 85%, 99%);
     margin: 0 auto;
     max-height: 29vh !important;
+    top: 50%;
+    position: absolute;
+    margin-top: -110px;
 }
 
 #videoPlayer, #analysisVideo, #objDetVideo {
     display: block;
     max-height: 30vh !important;
-    max-width: 34vw;
+    max-width: 95%;
     margin: auto;
     transition: width 1s;
 }
 
 #videoPlayer {
-    /* height: 40vh !important; */
-    max-height: 40vh !important;
-    max-width: 470px !important;
     margin-top: 10px;
 }
 
@@ -254,8 +254,8 @@ canvas#analysisChart {
     transition: width 1s;
 }
 
-audio#audioPlayer {
-    width: 33vw;
+#audioPlayer {
+    width: 95%;
     margin-left: 0.4vw;
 }
 
