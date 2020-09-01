@@ -51,7 +51,7 @@ async function toggleDetailsFromMap(e){
     if (this.options.open == false) {
         if (window.prvClickedMarker != null) { window.prvClickedMarker.options.open = false; }
         this.options.open = true;
-
+ 
         showPanel("marker");
         await showDetails(info, e.latlng.toString().slice(7, -1));
         window.prvClickedMarker = this;
@@ -74,7 +74,7 @@ async function toggleDetailsFromFunction(layer){
         if (window.prvClickedMarker != null) { window.prvClickedMarker.options.open = false; }
         layer.options.open = true;
         layer.openPopup();
-
+ 
         showPanel("marker");
         await showDetails(info, layer.getLatLng().toString().slice(7, -1));
         window.prvClickedMarker = layer;
@@ -103,7 +103,7 @@ async function showDetails(json, coordinates){
     let analysisImgFile = ((json.detImage != null) ? videoLink + json.detImage : null);
 
     let sensorVideoFile = null;
-    let sensorAudiofile = null;
+    let sensorAudiofile = null; 
 
     if (type == "Event") {
 
@@ -120,7 +120,7 @@ async function showDetails(json, coordinates){
     }
 
     let timelineInfo = json.eventDetails;
-
+       
     clearDetailsMedia();
 
     addDetailsMedia(json, coordinates, type, chartData, analysisImgFile, objDetFile, slctRevFile, analysisAudioFile, sensorVideoFile, sensorAudiofile, timelineInfo);
@@ -143,7 +143,7 @@ function clearDetailsMedia() {
         }
 
         analysisImage.setAttribute('src', '');
-
+            
         objDetVideoSrc.setAttribute('src', '');
         objDetVideo.load();
 
@@ -194,21 +194,8 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 videoDesc.innerHTML = "Captured Footage :";
                 if (!videoPlayer.classList.contains("sensorVideo")) { videoPlayer.classList.add("sensorVideo"); }
             }
-
-            if (audiofile != null) {
-                sensorVideo.style.display = "none";
-                sensorAudio.style.display = "block";
-                audioSource.setAttribute('src', audiofile);
-                audioPlayer.load();
-
-            } else {
-                sensorAudio.style.display = "none";
-                sensorVideo.style.display = "block";
-                videoSource.setAttribute('src', videofile);
-                videoPlayer.load();
-            }
-
-        } else {
+        
+        } else { 
 
             detailsID.innerHTML = json.eventID;
             detailsName.innerHTML = json.eventName;
@@ -253,7 +240,7 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 totalCarousel ++;
 
                 activeSet = await setCarouselItem(objDetVideoDiv, activeSet);
-
+                
             } else {
                 removeCarouselItem(objDetVideoDiv);
             }
@@ -291,6 +278,7 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                     carouselNext.classList.remove("hidden")
                 }
             }
+        }
 
         if (sensorAudioFile != null) {
             sensorVideo.style.display = "none";
@@ -326,7 +314,7 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
 
             let h2 = document.createElement("h2");
             let wbr = document.createElement("wbr");
-            let datetime = timelineInfo[item].datetime.split("T");
+            let datetime = timelineInfo[item].datetime.split("T"); 
             let date = document.createTextNode(datetime[0] + "T");
             let time = document.createTextNode(datetime[1]);
             h2.appendChild(date);
@@ -380,25 +368,25 @@ function removeActive(element) {
 
 // Add element to the media carousel
 function setCarouselItem(element, activeSet) {
-    if ( !element.classList.contains("carousel-item") ) {
-        element.classList.add("carousel-item");
-        element.classList.remove("hidden");
+    if ( !element.classList.contains("carousel-item") ) { 
+        element.classList.add("carousel-item"); 
+        element.classList.remove("hidden"); 
     }
-
+                
     if ( activeSet == false ) { element.classList.add("active"); }
-
+    
     return true;
 };
 
 // Remove element from the media carousel
 function removeCarouselItem(element) {
-    if ( element.classList.contains("carousel-item") ) {
-        element.classList.remove("carousel-item");
-        element.classList.add("hidden");
+    if ( element.classList.contains("carousel-item") ) { 
+        element.classList.remove("carousel-item"); 
+        element.classList.add("hidden"); 
     }
 
-    if ( element.classList.contains("active") ) {
-        element.classList.remove("active");
+    if ( element.classList.contains("active") ) { 
+        element.classList.remove("active"); 
     }
 };
 
