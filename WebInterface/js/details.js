@@ -195,6 +195,19 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 if (!videoPlayer.classList.contains("sensorVideo")) { videoPlayer.classList.add("sensorVideo"); }
             }
 
+            if (audiofile != null) {
+                sensorVideo.style.display = "none";
+                sensorAudio.style.display = "block";
+                audioSource.setAttribute('src', audiofile);
+                audioPlayer.load();
+
+            } else {
+                sensorAudio.style.display = "none";
+                sensorVideo.style.display = "block";
+                videoSource.setAttribute('src', videofile);
+                videoPlayer.load();
+            }
+
         } else {
 
             detailsID.innerHTML = json.eventID;
@@ -278,7 +291,6 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                     carouselNext.classList.remove("hidden")
                 }
             }
-        }
 
         if (sensorAudioFile != null) {
             sensorVideo.style.display = "none";

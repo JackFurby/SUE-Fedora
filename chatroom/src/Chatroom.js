@@ -141,7 +141,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
   };
 
   handleButtonClick = (message: string, payload: string) => {
-    if ( !payload.includes("openEventDetails") && !payload.includes("openComplexEventDetails") ) {
+    if ( !payload.includes("openEventDetails") && !payload.includes("openComplexEventDetails") && !payload.includes("showEventMedia") ) {
       if (this.props.onButtonClick != null) {
         this.props.onButtonClick(message, payload);
       }
@@ -161,7 +161,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
     for (const message of messages.slice(1)) {
 
       let messageJSON = true;
-      let parsedMessage = null; 
+      let parsedMessage = null;
 
       if (message.message.type === "text") {
         try {
@@ -177,7 +177,7 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
 
         } else if (parsedMessage.type == "accessibility") {
           toggleAccessibility(parsedMessage.access);
-         
+
         }
 
       } else if (

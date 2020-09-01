@@ -190,7 +190,7 @@ async function addMarker(json, sensor, layerGroup) {
             addMarkerToLayer(eventmarker, ranges, window.critPriorityEvent, window.critPriorityEventRange);
         }
 
-        await sendUpdateToChat("Event", objID, current.eventName);
+        await sendUpdateToChat("Event", objID, current.eventName, current.description.match(/\d+/g)[0], current.description.match(/\d+/g)[1]);
     }
 
     // Update the analysis charts

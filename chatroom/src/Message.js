@@ -62,7 +62,7 @@ const Message = ({ chat, onButtonClick, voiceLang = null }: MessageProps) => {
     case "button":
 
       let id = "";
-      try { 
+      try {
         id = message.buttons[0].payload.split("-")[1];
       } catch (err) {
         console.log(err);
@@ -80,10 +80,12 @@ const Message = ({ chat, onButtonClick, voiceLang = null }: MessageProps) => {
                 payload.includes("openEventDetails")
                   ? () => openEventDetails(id)
                   : payload.includes("openComplexEventDetails")
-                    ? () => openComplexEventDetails(id)
-                    : onButtonClick != null
-                      ? () => onButtonClick(title, payload)
-                      : noop
+                    ? () => openEventDetails(id)
+                    : payload.includes("showEventMedia")
+                      ? () => showEventMedia(id)
+                      : onButtonClick != null
+                        ? () => onButtonClick(title, payload)
+                        : noop
               }
             >
               <Markdown
