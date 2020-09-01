@@ -6,7 +6,7 @@ async function processComplexEvent(json, idList) {
     let currentComplexLst = window.currentComplex;
     if (json != null) { currentComplexLst.push(json); }
 
-    let refinedList = await refineList(currentComplexLst, idList);
+    let refinedList = await refineList(currentComplexLst, idList); 
     window.currentComplex = refinedList;
 
     if (refinedList != currentComplexLst) {
@@ -32,7 +32,7 @@ async function addComplexMarker(complex) {
         let item = await getProperties(events[i], false);
 
         let coordinates = item.coordinates;
-
+       
         lat += coordinates[0];
         long += coordinates[1];
 
@@ -72,7 +72,7 @@ async function addComplexMarker(complex) {
             window.complexEventsAdded.push(id);
         };
     }
-
+    
     toggleLayer(window.complexEvent);
 };
 
@@ -80,7 +80,7 @@ async function addComplexMarker(complex) {
 function refineList(list, idList) {
     let refinedList = [];
     let complexList = [];
-
+      
     for ( let i in list ) {
         let newEvents = list[i].properties.events;
         let okayToAdd = true;

@@ -113,7 +113,7 @@ async function addMarker(json, sensor, layerGroup) {
                 ranges.push(newRange);
                 radius = radius + 5;
             }
-        }
+        } 
 
         if (layerGroup == "sensorCamera") {
             // Update map layer with new marker and ranges
@@ -122,11 +122,11 @@ async function addMarker(json, sensor, layerGroup) {
         } else if (layerGroup == "sensorMicrophone") {
             // Use default sensor marker with microphone icon
             sensorMarker.setIcon(microphoneIcon);
-
+    
         } else if (layerGroup == "sensorHuman") {
             // Use default sensor marker with human icon
             sensorMarker.setIcon(humanIcon);
-
+        
         } else if (layerGroup == "sensorUK") {
             // Use default sensor marker with uk flag icon
             sensorMarker.setIcon(ukIcon);
@@ -138,7 +138,7 @@ async function addMarker(json, sensor, layerGroup) {
 
         // Update map layer with new marker and ranges
         addMarkerToLayer(sensorMarker, ranges, window[layerGroup], window[layerGroup + "Range"]);
-
+    
     } else {
         let objID = json.eventID;
 
@@ -153,11 +153,11 @@ async function addMarker(json, sensor, layerGroup) {
         } else if (current.priority == 3) {
             iconChoice = (window.accessibility == false ? yellowIcon : cbYellowIcon);
             colourChoice = (window.accessibility == false ? '#FEDD80' : '#70D4E5');
-
+        
         } else if (current.priority == 2) {
             iconChoice = (window.accessibility == false ? orangeIcon : cbOrangeIcon);
             colourChoice = (window.accessibility == false ? '#FEA080' : '#FE9D85');
-
+        
         } else if (current.priority == 1) {
             iconChoice = (window.accessibility == false ? redIcon : cbRedIcon);
             colourChoice = (window.accessibility == false ? '#FE7F7F' : '#EC6C71');
@@ -166,7 +166,7 @@ async function addMarker(json, sensor, layerGroup) {
         // Create an event marker with the icon determined above
         let eventmarker = L.marker(coordinates, {id: objID, icon: iconChoice, properties: JSON.stringify(json.properties), open: false, hidden: false}).on('click', toggleDetailsFromMap);
         eventmarker.bindPopup(current.eventName);
-
+        
         // Creating a varying outer range for events determined randomly from list of avaliable ranges
         let eventRadius = 90;
         let rangeRadius = [90, 80, 70, 60, 50, 40, 30];
@@ -175,7 +175,7 @@ async function addMarker(json, sensor, layerGroup) {
         // Add range circles to list
         ranges.push(L.circle(coordinates, {radius: eventRadius*1/4, fillColor: colourChoice, color: colourChoice, fillOpacity: 0.6, weight: 3, gradient: true, id: objID, properties: JSON.stringify(json.properties), hidden: false}));
         ranges.push(L.circle(coordinates, {radius: rad, fillColor: colourChoice, color: colourChoice, fillOpacity: 0.4, weight: 3, gradient: true, id: objID, properties: JSON.stringify(json.properties), hidden: false}));
-
+        
         // Add event marker and its ranges to the appropriate layer
         if (current.priority == 4) {
             addMarkerToLayer(eventmarker, ranges, window.lowPriorityEvent, window.lowPriorityEventRange);
@@ -190,7 +190,7 @@ async function addMarker(json, sensor, layerGroup) {
             addMarkerToLayer(eventmarker, ranges, window.critPriorityEvent, window.critPriorityEventRange);
         }
 
-        await sendUpdateToChat("Event", objID, current.eventName, current.description.match(/\d+/g)[0], current.description.match(/\d+/g)[1]);
+        await sendUpdateToChat("Event", objID, current.eventName);
     }
 
     // Update the analysis charts
@@ -220,8 +220,8 @@ async function getProperties(layer, graph) {
     try {
         let allProperties = (JSON.parse(layer.options.properties));
         let keys = Object.keys(allProperties);
-        if (graph) {
-            properties = keys[0];
+        if (graph) { 
+            properties = keys[0]; 
         } else {
           allProperties.id = layer.options.id;
           properties = await compileProperties(allProperties, keys);
@@ -238,7 +238,7 @@ async function getProperties(layer, graph) {
 function compileProperties(properties, keys) {
     let fullProperties = {};
     let type = properties.initial != null ? "sensor" : (properties[keys[0]].events != null ? "complex" : "event");
-
+    
     let currentTime = null;
     if ( window.timePoint != null ) {
         let splitTime = window.timePoint.split(":");
@@ -292,7 +292,7 @@ function compileProperties(properties, keys) {
                 }
                 fullProperties.datetime = keys[i];
                 fullProperties.eventID = properties.id
-
+        
             } else if (type.toLowerCase() == "sensor") {
                 if (item.sensorName != null) {
                     fullProperties.sensorName = item.sensorName;
@@ -313,7 +313,7 @@ function compileProperties(properties, keys) {
                     fullProperties.rangeDirection = item.rangeDirection;
                 }
                 fullProperties.sensorID = properties.id
-
+            
             } else {
                 if (item.complexName != null) {
                     fullProperties.complexName = item.complexName;
@@ -346,17 +346,17 @@ async function showPopup(layer) {
 // Get icon by sensor type/owner, event priority, or complex event
 function getIcon(properties, ownerSensor) {
     if (properties.sensorType != null) {
-        if (ownerSensor) {
-            return (properties.owner == "UK" ? ukIcon : usIcon);
-        } else {
-            return (properties.sensorType == "Camera" ? cameraIcon : properties.sensorType == "Microphone" ? microphoneIcon : humanIcon);
+        if (ownerSensor) { 
+            return (properties.owner == "UK" ? ukIcon : usIcon); 
+        } else { 
+            return (properties.sensorType == "Camera" ? cameraIcon : properties.sensorType == "Microphone" ? microphoneIcon : humanIcon); 
         }
     } else if (properties.priority != null) {
         if (window.accessibility) {
             return (properties.priority == 1 ? cbRedIcon : properties.priority == 2 ? cbOrangeIcon : properties.priority == 3 ? cbYellowIcon : cbBlueIcon);
         } else {
             return (properties.priority == 1 ? redIcon : properties.priority == 2 ? orangeIcon : properties.priority == 3 ? yellowIcon : blueIcon);
-        }
+        }        
     } else {
         return complexIcon;
     }
