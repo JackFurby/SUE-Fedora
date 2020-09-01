@@ -1,10 +1,12 @@
 const SocketServer = require('ws').Server;
 
+const fsp = require('fs').promises;
+const mime = require('mime-types');
+
 const express = require('express');
 const path = require('path');
 
 const app = express();
-
 const router = express.Router();
 const port = 8000;
 
@@ -65,9 +67,8 @@ wsServer.on('connection', function (wsClient) {
   wsClient.sue = false;
 
   wsClient.on('message', async function (message) {
-    console.log('received: %s', message);
-
-    let parsedMessage
+  
+    let parsedMessage;
     let error = false;
 
     try {
@@ -78,6 +79,8 @@ wsServer.on('connection', function (wsClient) {
     }
 
     if (!error) {
+      console.log('received: %s', parsedMessage.type);
+
       if (parsedMessage.type.toLowerCase() == "add-sue-client") {
         wsClient.sue = true;
         SUEClients.push(wsClient);
@@ -182,7 +185,7 @@ wsServer.on('connection', function (wsClient) {
         let deleteResponse = {};
           
         if (parsedMessage.events != null) {
-          let response = await events.deleteEvent(parsedMessage.events,);
+          let response = await events.deleteEvent(parsedMessage.events, true);
           
           sendAll(SUEClients, response);
 
@@ -231,6 +234,45 @@ wsServer.on('connection', function (wsClient) {
         } else {
           wsClient.send(JSON.stringify({"DELETE - fail": "No Items Deleted"}));
         }
+      } else if (parsedMessage.type.toLowerCase() == "file-upload") {
+
+        if (parsedMessage.files != null) {
+
+          for ( let i in parsedMessage.files) {
+
+            let file = parsedMessage.files[i];
+
+            base64ToFile(file.name, file.data);
+
+            wsClient.send(JSON.stringify({"file-upload": "Successful"}));
+
+          }  
+        } 
+      }  else if (parsedMessage.type.toLowerCase() == "file-download") {
+
+        if (parsedMessage.files != null) {
+
+          for ( let i in parsedMessage.files) {
+
+            let file = parsedMessage.files[i];
+            let base64File = await fileToBase64(file.name);
+            let type = mime.lookup('./media/' + file.name);
+
+            let response = {
+              "type":"file-download",
+              "files": [
+                { 
+                  "name": file.name,
+                  "type": type,
+                  "data": base64File
+                }
+              ]
+            }
+
+            wsClient.send(JSON.stringify(response));
+
+          }  
+        }
       }
     }
   });
@@ -243,6 +285,17 @@ wsServer.on('connection', function (wsClient) {
     console.log('closed');
   });
 });
+
+async function fileToBase64(filename) {
+  let data = await fsp.readFile('./media/' + filename, {encoding: 'base64'});
+  return data;
+};
+
+function base64ToFile(name, b64) {
+  fsp.writeFile("./media/" + name, b64, 'base64', function(err) {
+    console.log(err);
+  });
+};
 
 function getUpdatedID(response) {
   let ids = [];
@@ -292,6 +345,9 @@ function getUpdatedObjects(response) {
   }
   for ( let i in response.lowPriorityEvent ) {
     objects.push(response.lowPriorityEvent[i]);
+  }
+  for ( let i in response.complexEvent ) {
+    objects.push(response.complexEvent[i]);
   }
 
   return objects;

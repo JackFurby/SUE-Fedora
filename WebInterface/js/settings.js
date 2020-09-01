@@ -1,5 +1,6 @@
 window.accessibility = false; 
 
+// Toggle map marker colour scheme between normal view and colour-blindness support
 function toggleAccessibility(on) {
     if (on) {
         window.accessibility = true; 
@@ -64,6 +65,7 @@ function toggleAccessibility(on) {
     }
 };
 
+// Toggle sidebar panel on button click
 function togglePage(e) {
     if (e.id === "analysisToggle") {
         showPanel("analysis");
@@ -73,6 +75,45 @@ function togglePage(e) {
 
     } else {
         showPanel("chat");
+    }
+};
+
+// Open sidebar panel specified in selectedPanel
+function showPanel(selectedPanel) {
+
+    // Find Panel HTML Elements
+    const chatPanel = document.getElementById("chatPanel");
+    const chatToggle = document.getElementById("chatToggle");
+
+    const analysisPanel = document.getElementById("analysisPanel");
+    const analysisToggle = document.getElementById("analysisToggle");
+
+    const markerPanel = document.getElementById("markerPanel");
+    const markerToggle = document.getElementById("markerToggle");
+
+    let panel = (selectedPanel.toLowerCase() == "chat" ? chatPanel : (selectedPanel == "analysis" ? analysisPanel : markerPanel));
+    let toggle = (selectedPanel.toLowerCase() == "chat" ? chatToggle : (selectedPanel == "analysis" ? analysisToggle : markerToggle));;
+
+    if ( selectedPanel.toLowerCase() != "chat" ) {
+        hideElement(chatPanel);
+        removeActive(chatToggle);
+    }
+
+    if ( selectedPanel.toLowerCase() != "analysis" ) {
+        hideElement(analysisPanel);
+        removeActive(analysisToggle);
+    }
+
+    if ( selectedPanel.toLowerCase() != "marker" ) {
+        hideElement(markerPanel);
+        removeActive(markerToggle);
+    }
+
+    if ( panel.classList.contains("hidden") ) {
+        panel.classList.remove("hidden")
+    }
+    if ( !toggle.classList.contains("active") ) {
+        toggle.classList.add("active")
     }
 };
 
@@ -87,7 +128,8 @@ $('.slider').mousedown( function( ev, handler ) {
     offset = offset > maxOffset ? maxOffset : offset;
 
     let fontSize = Math.round((offset * 11) / 200);
-    let paddingSize = Math.round(offset * 3 / 80)
+    let paddingSize = Math.round(offset * 3 / 80);
+    let canvasHeight = $('canvas#analysisChart').height();
     
     $('.sidebar').css('width', offset);
     $('.slider').css('marginLeft', offset);
@@ -98,9 +140,10 @@ $('.slider').mousedown( function( ev, handler ) {
     $('.tcontainer').css('paddingRight', Math.min(paddingSize, 20));
     $('.content').css('paddingLeft', Math.min(paddingSize, 30));
     $('.content').css('paddingRight', Math.min(paddingSize, 30));
+    $('canvas#analysisChart').css('marginTop', -Math.min(canvasHeight / 2, 110));
     $('.map-wrapper').css('marginLeft', offset + 10);
 
-    window.leafletmap.invalidateSize()
+    window.leafletmap.invalidateSize();
   });
 });
 

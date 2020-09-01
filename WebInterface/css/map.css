@@ -105,7 +105,7 @@ body {
 }
 
 .toggle-btn button:hover {
-    background-color: hsl(210, 60%, 95%);
+    background-color: hsl(210, 60%, 93%);
 }
 
 .toggle-btn button.active {
@@ -138,19 +138,6 @@ body {
     text-orientation: sideways;
     transform: rotate(180deg);
     margin: auto;
-}
-
-.primary-btn {
-  background-color: hsl(210, 40%, 40%);
-  color: white;
-  padding: 5px;
-  margin: 0 auto;
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.primary-btn:hover {
-  background-color: hsl(210, 40%, 20%);
 }
 /* ******* END Toggle Button ******* */
 
@@ -186,7 +173,7 @@ body {
     padding: 10px;
     border-radius: 1px;
     height: 80vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .sidebar-main.mapanalysis {
@@ -194,9 +181,9 @@ body {
 }
 
 .sidebar-header {
-    display: initial;
+    display: block;
     text-align: center;
-    height: 30px;
+    height: 40px;
     width: 100%;
 }
 
@@ -232,20 +219,20 @@ canvas#analysisChart {
     background-color: hsl(210, 85%, 99%);
     margin: 0 auto;
     max-height: 29vh !important;
+    top: 50%;
+    position: absolute;
+    margin-top: -110px;
 }
 
 #videoPlayer, #analysisVideo, #objDetVideo {
     display: block;
     max-height: 30vh !important;
-    max-width: 34vw;
+    max-width: 95%;
     margin: auto;
     transition: width 1s;
 }
 
 #videoPlayer {
-    /* height: 40vh !important; */
-    max-height: 40vh !important;
-    max-width: 470px !important;
     margin-top: 10px;
 }
 
@@ -254,8 +241,8 @@ canvas#analysisChart {
     transition: width 1s;
 }
 
-audio#audioPlayer {
-    width: 33vw;
+#audioPlayer {
+    width: 95%;
     margin-left: 0.4vw;
 }
 
@@ -397,6 +384,11 @@ audio#audioPlayer {
     background-color: inherit;
     width: 50%;
     padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tcontainer:hover {
+    background-color: hsl(210, 60%, 85%);
 }
 
 .tcontainer::after {
@@ -426,6 +418,17 @@ audio#audioPlayer {
 
 .tcontainer.red::after {
     border: 4px solid #f91c1c;
+}
+
+.tcontainer:hover::after {
+    width: 25px;
+    height: 25px;
+    right: -12.5px;
+    top: 13px;
+}
+
+.right:hover::after {
+    left: -12.5px;
 }
 
 .timeline .left {
