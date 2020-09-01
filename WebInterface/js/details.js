@@ -101,7 +101,8 @@ async function showDetails(json, coordinates){
     let slctRevFile = ((json.slctRevVideo != null) ? videoLink + json.slctRevVideo : null);
     let analysisAudioFile = ((json.detAudio != null) ? audioLink + json.detAudio : null);
     let analysisImgFile = ((json.detImage != null) ? videoLink + json.detImage : null);
-    let sensorAudiofile = null;
+
+    let sensorVideoFile = null;
     let sensorAudiofile = null;
 
     if (type == "Event") {
@@ -121,6 +122,7 @@ async function showDetails(json, coordinates){
     let timelineInfo = json.eventDetails;
 
     clearDetailsMedia();
+
     addDetailsMedia(json, coordinates, type, chartData, analysisImgFile, objDetFile, slctRevFile, analysisAudioFile, sensorVideoFile, sensorAudiofile, timelineInfo);
 };
 
@@ -238,7 +240,7 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 totalCarousel ++;
 
                 activeSet = await setCarouselItem(objDetVideoDiv, activeSet);
-                
+
             } else {
                 removeCarouselItem(objDetVideoDiv);
             }
@@ -400,4 +402,3 @@ async function openComplexEventDetails(id) {
     let complex = await findComplex(parseInt(id));
     toggleDetailsFromFunction(complex);
 };
-

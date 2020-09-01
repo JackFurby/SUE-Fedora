@@ -138,7 +138,6 @@ async function addMarker(json, sensor, layerGroup) {
 
         // Update map layer with new marker and ranges
         addMarkerToLayer(sensorMarker, ranges, window[layerGroup], window[layerGroup + "Range"]);
-    
 
     } else {
         let objID = json.eventID;
@@ -221,10 +220,8 @@ async function getProperties(layer, graph) {
     try {
         let allProperties = (JSON.parse(layer.options.properties));
         let keys = Object.keys(allProperties);
-
         if (graph) {
             properties = keys[0];
-
         } else {
           allProperties.id = layer.options.id;
           properties = await compileProperties(allProperties, keys);
@@ -261,8 +258,6 @@ function compileProperties(properties, keys) {
         // For eachset of properties at a timepoint, add them to the compiled list if that timepoint is earlier than the current time selected
         if ( currentTime == null || propertiesTime < currentTime ) {
             let item = properties[keys[i]];
-            console.log(item);
-            console.log(keys[i]);
 
             if (type.toLowerCase() == "event") {
                 if (item.eventName != null) {
@@ -365,5 +360,4 @@ function getIcon(properties, ownerSensor) {
     } else {
         return complexIcon;
     }
-
 };
