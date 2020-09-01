@@ -6,3 +6,10 @@ Rasa/__pycache__
 nodeJSON/json/sensors.json
 nodeJSON/json/events.json
 nodeJSON/json/complex.json
+Bang.mp4
+gun-fight2-full.mp4
+*.pyc
+framesBang.gif
+audioBang.wav
+framesFight.gif
+audioFight.wav

@@ -1,4 +1,9 @@
 # SUE
+
+This is a fork of Situational Understanding Explorer (SUE) which has been adjusted to work on Fedora instead of Ubuntu. It has been tested on Fedora 32. You may still experience issues, but hopfully I have accounted for most of them... 
+
+---
+
 Situational Understanding Explorer. An interface designed to showcase new situational awareness/ understandin research on a city-based map integration. This interface can take inputs in the form of JSON documents and display then as markers on the map, with features to allow user interaction and customisation.  
 Currently being used to display sensors and events around a city, with sensors being data capturers, such as CCTV cameras and microphones, and events being AI detected anomolous events that are discovered within sensor feeds.  
 
@@ -26,12 +31,9 @@ Using a command to enter accessibility mode in the Chatbot, the colour scheme us
 
 ![](examples/Accessibility.gif)
 
-## Recommendations
-It is recommended to run this interface on a:  
-- (Ubuntu-based) Linux VM  
-
-Viewing the interface with the browser:  
+Viewing the interface in a browser. Known compatible ones are:  
 - Google Chrome
+- Firefox
 
 ## Installation
 ### Linux
