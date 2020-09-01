@@ -103,7 +103,11 @@ async function showDetails(json, coordinates){
     let analysisImgFile = ((json.detImage != null) ? videoLink + json.detImage : null);
 
     let sensorVideoFile = null;
+<<<<<<< HEAD
     let sensorAudiofile = null;
+=======
+    let sensorAudiofile = null;
+>>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
 
     if (type == "Event") {
 
@@ -120,9 +124,15 @@ async function showDetails(json, coordinates){
     }
 
     let timelineInfo = json.eventDetails;
+<<<<<<< HEAD
 
     clearDetailsMedia();
 
+=======
+
+    clearDetailsMedia();
+
+>>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
     addDetailsMedia(json, coordinates, type, chartData, analysisImgFile, objDetFile, slctRevFile, analysisAudioFile, sensorVideoFile, sensorAudiofile, timelineInfo);
 };
 
@@ -240,7 +250,11 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 totalCarousel ++;
 
                 activeSet = await setCarouselItem(objDetVideoDiv, activeSet);
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
             } else {
                 removeCarouselItem(objDetVideoDiv);
             }
@@ -385,7 +399,7 @@ function removeCarouselItem(element) {
         element.classList.add("hidden");
     }
 
-    if ( element.classList.contains("active") ) { 
+    if ( element.classList.contains("active") ) {
         element.classList.remove("active");
     }
 };
