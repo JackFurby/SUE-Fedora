@@ -443,7 +443,7 @@ canvas#analysisChart {
 .right:hover::after {
     left: -12.5px;
 }
-
+  
 .timeline .left {
     left: 0;
 }

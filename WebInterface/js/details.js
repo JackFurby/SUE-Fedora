@@ -101,13 +101,8 @@ async function showDetails(json, coordinates){
     let slctRevFile = ((json.slctRevVideo != null) ? videoLink + json.slctRevVideo : null);
     let analysisAudioFile = ((json.detAudio != null) ? audioLink + json.detAudio : null);
     let analysisImgFile = ((json.detImage != null) ? videoLink + json.detImage : null);
-
-    let sensorVideoFile = null;
-<<<<<<< HEAD
     let sensorAudiofile = null;
-=======
     let sensorAudiofile = null;
->>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
 
     if (type == "Event") {
 
@@ -124,15 +119,8 @@ async function showDetails(json, coordinates){
     }
 
     let timelineInfo = json.eventDetails;
-<<<<<<< HEAD
 
     clearDetailsMedia();
-
-=======
-
-    clearDetailsMedia();
-
->>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
     addDetailsMedia(json, coordinates, type, chartData, analysisImgFile, objDetFile, slctRevFile, analysisAudioFile, sensorVideoFile, sensorAudiofile, timelineInfo);
 };
 
@@ -250,11 +238,7 @@ async function addDetailsMedia(json, coordinates, type, chartData, analysisImgFi
                 totalCarousel ++;
 
                 activeSet = await setCarouselItem(objDetVideoDiv, activeSet);
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 62240248ef53b6f60a82cfc63da1e5ea3a4aada6
+                
             } else {
                 removeCarouselItem(objDetVideoDiv);
             }
@@ -416,3 +400,4 @@ async function openComplexEventDetails(id) {
     let complex = await findComplex(parseInt(id));
     toggleDetailsFromFunction(complex);
 };
+
