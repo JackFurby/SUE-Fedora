@@ -214,7 +214,7 @@ export default class ConnectedChatroom extends Component<
   };
 
   handleButtonClick = (buttonTitle: string, payload: string) => {
-    if ( !payload.includes("openEventDetails") && !payload.includes("openComplexEventDetails") ) {
+    if ( !payload.includes("openEventDetails") && !payload.includes("openComplexEventDetails") && !payload.includes("showEventMedia") ) {
       this.sendMessage(payload);
       if (window.ga != null) {
         window.ga("send", "event", "chat", "chat-button-click");
